@@ -1,54 +1,38 @@
-#include<bits/stdc++.h> 
+#include <bits/stdc++.h>
 using namespace std;
- 
- int dist(int a,int b)
- {
- 	return abs(a - b);
- } 
 
-int main(){
+#define int long long
 
-	#ifndef ONLINE_JUDGE
+void solve() {
+    
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    for (int &ai: a) cin >> ai;
+    
+    int start1 = a[n/2] - k/2;
+    int start2 = a[n/2 - 1] - k/2;
+    int ans = 1e18;
+    
+    for (int hill1 : {start1, start2}) {
+        int hill2 = hill1 + k - 1;
+        int dist = 0;
+        for (int ai: a) dist += max(abs(hill1 - ai), abs(hill2 - ai));
+        ans = min(ans, dist);
+    }
+    
+    cout << ans << endl;
+}
+
+signed main() {
+    
+    int t;
+    cin >> t;
+    #ifndef ONLINE_JUDGE
 			freopen("input.txt","r",stdin);
 			freopen("output.txt","w",stdout);
 	#endif
-	int t;
-	cin>>t;
-
-	while(t--){
-		int n,k;
-		cin>>n>>m;
-		vector<int> a(n);
-		for(int i=0;i<n;i++){
-			cin>>a[i];
-		}
-
-		sort(all(a));
-		int mid = a[n/2];
-		int result = INT_MAX;
-
-		for(int j=0;j<2;j++)
-		{
-			int left = (k-1)/2;
-			int right = k - 1 - left;
-
-			left = mid - left;
-			right = mid + right;
-
-			if(j==1)
-			{
-				swap(left,right);
-			}
-			int ans = 0;
-			for(int x:a){
-				ans += max(dist(x,left),dist(x,right)); 
-			}
-			result = min(result,ans);
-		}
-		cout<<result<<endl;
-
-	}	
+    while (t--) solve();
+    
+    return 0;
 }
-
-
- 
